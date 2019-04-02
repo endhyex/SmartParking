@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Smart Parking</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 425px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      // The following example creates complex markers to indicate beaches near
+      // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+      // to the base of the flagpole.
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 19,
+          center: {lat: -6.361, lng: 106.8248}
+        });
+
+        setMarkers(map);
+      }
+
+      // Data for the markers consisting of a name, a LatLng and a zIndex for the
+      // order in which these markers should display on top of each other.
+      var beaches = [
+        ['Parkir A1, FTUI', -6.36173, 106.82485, 1],
+        ['Parkir A2, FTUI', -6.36175, 106.82485, 2],
+        ['Parkir A3, FTUI', -6.36013, 106.82492, 3],
+        ['Parkir A4, FTUI', -6.36161, 106.82498, 4],
+        ['Parkir A5, FTUI', -6.36082, 106.82501, 5],
+        ['Parkir A6, FTUI', -6.36200, 106.82487, 6],
+        ['Parkir A7, FTUI', -6.36250, 106.82489, 7],
+        ['Parkir A8, FTUI', -6.36013, 106.82492, 8],
+        ['Parkir A9, FTUI', -6.36161, 106.82498, 9],
+        ['Parkir A10, FTUI', -6.36082, 106.82501, 10],
+        ['Parkir A11, FTUI', -6.36162, 106.82487, 11],
+        ['Parkir A12, FTUI', -6.36091, 106.82489, 12],
+        ['Parkir A13, FTUI', -6.36013, 106.82492, 13],
+        ['Parkir A14, FTUI', -6.36161, 106.82498, 14],
+        ['Parkir A15, FTUI', -6.36082, 106.82501, 15],
+        ['Parkir A16, FTUI', -6.36162, 106.82487, 16],
+        ['Parkir A17, FTUI', -6.36091, 106.82489, 17],
+        ['Parkir A18, FTUI', -6.36013, 106.82492, 18],
+        ['Parkir A19, FTUI', -6.36161, 106.82498, 19],
+        ['Parkir A20, FTUI', -6.36082, 106.82501, 20],
+        ['Parkir A21, FTUI', -6.36162, 106.82487, 21],
+        ['Parkir A22, FTUI', -6.36091, 106.82489, 22],
+        ['Parkir A23, FTUI', -6.36013, 106.82492, 23],
+        ['Parkir A24, FTUI', -6.36161, 106.82498, 24],
+        ['Parkir A25, FTUI', -6.36082, 106.82501, 25],
+        ['Parkir A26, FTUI', -6.36162, 106.82487, 26],
+        ['Parkir A27, FTUI', -6.36091, 106.82489, 27],
+        ['Parkir A28, FTUI', -6.36013, 106.82492, 28],
+        ['Parkir A29, FTUI', -6.36161, 106.82498, 29],
+        ['Parkir A30, FTUI', -6.36082, 106.82501, 30],
+        ['Parkir A31, FTUI', -6.36162, 106.82487, 31],
+        ['Parkir A32, FTUI', -6.36091, 106.82489, 32],
+        ['Parkir A33, FTUI', -6.36013, 106.82492, 33],
+        ['Parkir A34, FTUI', -6.36161, 106.82498, 34],
+        ['Parkir A35, FTUI', -6.36082, 106.82501, 35],
+        ['Parkir A36, FTUI', -6.36162, 106.82487, 36],
+        ['Parkir A37, FTUI', -6.36091, 106.82489, 37],
+        ['Parkir A38, FTUI', -6.36013, 106.82492, 38],
+        ['Parkir A39, FTUI', -6.36161, 106.82498, 39],
+        ['Parkir A40, FTUI', -6.36082, 106.82501, 40],
+      ];
+
+      function setMarkers(map) {
+        // Adds markers to the map.
+
+        // Marker sizes are expressed as a Size of X,Y where the origin of the image
+        // (0,0) is located in the top left of the image.
+
+        // Origins, anchor positions and coordinates of the marker increase in the X
+        // direction to the right and in the Y direction down.
+        var image = {
+          url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(20, 32),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+        // Shapes define the clickable region of the icon. The type defines an HTML
+        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+        // The final coordinate closes the poly by connecting to the first coordinate.
+
+
+
+var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        for (var i = 0; i < beaches.length; i++) {
+          var beach = beaches[i];
+          var marker = new google.maps.Marker({
+            position: {lat: beach[1], lng: beach[2]},
+            map: map,
+            icon: image,
+            shape: shape,
+            title: beaches[i][0]
+            //zIndex: beach[3],
+          });
+
+          var infoWindowContent = [
+        ['<div class="info_content">' + '<h3>Parkir A1</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A2</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A3</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A4</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A5</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A6</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A7</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A8</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A9</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A10</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A11</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A12</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A13</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A14</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A15</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A16</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A17</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A18</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A19</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A20</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A21</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A22</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A23</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A24</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A25</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A26</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A27</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A28</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A29</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A30</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A31</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A32</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A33</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A34</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A35</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A36</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A37</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A38</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A39</h3>' + '<p>Available/Non Available</p>' + '</div>'],
+        ['<div class="info_content">' + '<h3>Parkir A40</h3>' + '<p>Tersedia/tidak Tersedia</p>' + '</div>']
+
+    ];
+           var infoWindow = new google.maps.InfoWindow(), marker, i;
+           google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFagTsfeYd8Qoj_fXc_qg7gjn78UaD9JY&callback=initMap">
+    </script>
+  </body>
+</html>
